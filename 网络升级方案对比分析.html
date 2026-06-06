@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>公司网络升级方案对比分析</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "Microsoft YaHei", sans-serif; background: #f0f2f5; color: #1a1a2e; line-height: 1.6; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+
+  .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 48px 40px; border-radius: 16px; margin-bottom: 32px; }
+  .header h1 { font-size: 28px; margin-bottom: 8px; }
+  .header .subtitle { opacity: .7; font-size: 15px; }
+  .status-badge { display: inline-block; background: rgba(255,255,255,.15); padding: 4px 12px; border-radius: 20px; font-size: 13px; margin: 6px 6px 0 0; }
+
+  .card { background: #fff; border-radius: 16px; padding: 32px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .card h2 { font-size: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .card h2 .icon { font-size: 24px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th { background: #f8f9fa; padding: 14px 16px; text-align: center; font-weight: 700; border-bottom: 2px solid #e0e0e0; }
+  thead th:first-child { text-align: left; border-radius: 8px 0 0 0; }
+  thead th:last-child { border-radius: 0 8px 0 0; }
+  tbody td { padding: 14px 16px; text-align: center; border-bottom: 1px solid #f0f0f0; }
+  tbody td:first-child { text-align: left; font-weight: 600; color: #555; }
+
+  .bar-chart { display: flex; flex-direction: column; gap: 16px; margin: 24px 0; }
+  .bar-row { display: flex; align-items: center; gap: 12px; }
+  .bar-label { width: 80px; text-align: right; font-size: 13px; font-weight: 600; flex-shrink: 0; }
+  .bar-track { flex: 1; background: #f0f0f0; border-radius: 8px; height: 36px; position: relative; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 8px; display: flex; align-items: center; justify-content: flex-end; padding-right: 12px; color: #fff; font-weight: 700; font-size: 14px; }
+  .bar-fill.plan1 { background: #6366f1; width: 100%; }
+  .bar-fill.plan2 { background: #8b5cf6; width: 97.6%; }
+  .bar-fill.plan3 { background: #0284c7; width: 72.7%; }
+  .bar-detail { font-size: 13px; color: #666; flex-shrink: 0; }
+
+  .plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .plan-card { border-radius: 12px; padding: 28px 24px; border: 2px solid #e0e0e0; }
+  .plan-card .plan-num { font-size: 12px; color: #888; margin-bottom: 4px; }
+  .plan-card .plan-name { font-size: 17px; font-weight: 700; margin-bottom: 16px; }
+  .plan-card .plan-price { font-size: 28px; font-weight: 800; margin-bottom: 2px; }
+  .plan-card .plan-price-sub { font-size: 12px; color: #888; margin-bottom: 20px; }
+  .plan-card .plan-items { border-top: 1px solid #eee; padding-top: 16px; }
+  .plan-card .item { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
+  .plan-card .item .key { color: #666; }
+  .plan-card .item .val { font-weight: 600; }
+  .plan-card .price-note { margin-top: 12px; padding: 10px; background: #f8f9fa; border-radius: 6px; font-size: 12px; color: #666; line-height: 1.5; }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+  .tag-green { background: #dcfce7; color: #166534; }
+  .tag-yellow { background: #fef3c7; color: #92400e; }
+  .tag-blue { background: #dbeafe; color: #1e40af; }
+
+  .note-row { display: flex; gap: 12px; align-items: flex-start; padding: 10px 14px; background: #f8f9fa; border-radius: 8px; font-size: 13px; color: #555; }
+  .note-row .marker { font-weight: 700; flex-shrink: 0; }
+
+  @media (max-width: 768px) {
+    .plan-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>公司网络升级方案对比分析</h1>
+    <p class="subtitle">电信 · 三方案评估 | 2026-05-19</p>
+    <div style="margin-top:16px">
+      <span class="status-badge">当前：100M 宽带（¥24,000/年）</span>
+      <span class="status-badge">在线设备：~100 台</span>
+    </div>
+  </div>
+
+  <!-- 方案构成说明 -->
+  <div class="card">
+    <h2><span class="icon">📌</span>方案构成</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:20%"></th>
+          <th style="width:26%">方案 1（扩容）</th>
+          <th style="width:26%">方案 2（加装100M）</th>
+          <th style="width:28%">方案 3（加装1000M）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>方式</td>
+          <td>将现有 100M 升级为 200M</td>
+          <td>保留现有 100M + 新增一条 100M</td>
+          <td>保留现有 100M + 新增一条 1000M</td>
+        </tr>
+        <tr>
+          <td>总带宽</td>
+          <td><strong>200M</strong></td>
+          <td><strong>200M</strong>（100M × 2）</td>
+          <td><strong>1100M</strong>（100M + 1000M）</td>
+        </tr>
+        <tr>
+          <td>现有线路年费</td>
+          <td>¥24,000</td>
+          <td>¥24,000</td>
+          <td>¥24,000</td>
+        </tr>
+        <tr>
+          <td>新增/升级线路年费</td>
+          <td>¥48,000</td>
+          <td>¥22,825（八折后）</td>
+          <td>¥10,880</td>
+        </tr>
+        <tr>
+          <td><strong>年费总计</strong></td>
+          <td><strong>¥48,000</strong></td>
+          <td><strong>¥46,825</strong></td>
+          <td><strong>¥34,880</strong></td>
+        </tr>
+        <tr>
+          <td>每 Mbps / 年单价</td>
+          <td>¥240</td>
+          <td>¥234</td>
+          <td>¥32</td>
+        </tr>
+        <tr>
+          <td>线路类型</td>
+          <td><span class="tag tag-green">企业专线</span></td>
+          <td><span class="tag tag-green">企业专线</span></td>
+          <td>原有 100M：<span class="tag tag-green">企业专线</span><br>新增 1000M：<span class="tag tag-yellow">普通宽带</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 年费对比 -->
+  <div class="card">
+    <h2><span class="icon">💰</span>年费对比</h2>
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label">方案 1</div>
+        <div class="bar-track"><div class="bar-fill plan1">¥48,000</div></div>
+        <div class="bar-detail">200M | 企业专线 | 有固定 IP</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">方案 2</div>
+        <div class="bar-track"><div class="bar-fill plan2">¥46,825</div></div>
+        <div class="bar-detail">200M | 企业专线 | 有固定 IP</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">方案 3</div>
+        <div class="bar-track"><div class="bar-fill plan3">¥34,880</div></div>
+        <div class="bar-detail">1100M | 1000M 线为普通宽带、无固定 IP</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 三方案关键参数 -->
+  <div class="card">
+    <h2><span class="icon">📋</span>三方案关键参数对比</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:22%">对比维度</th>
+          <th style="width:26%">方案 1</th>
+          <th style="width:26%">方案 2</th>
+          <th style="width:26%">方案 3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>线路数量</td>
+          <td>1 条</td>
+          <td>2 条</td>
+          <td>2 条</td>
+        </tr>
+        <tr>
+          <td>下行带宽</td>
+          <td>200M</td>
+          <td>100M + 100M</td>
+          <td>100M + 1000M</td>
+        </tr>
+        <tr>
+          <td>上行带宽</td>
+          <td>100M</td>
+          <td>100M</td>
+          <td>100M 线：100M + 1000M 线：200M</td>
+        </tr>
+        <tr>
+          <td>固定 IP</td>
+          <td><span class="tag tag-green">有</span></td>
+          <td><span class="tag tag-green">有</span></td>
+          <td>100M 线有 + 1000M 线<span class="tag tag-yellow">无</span></td>
+        </tr>
+        <tr>
+          <td>线路类型</td>
+          <td>企业专线</td>
+          <td>企业专线</td>
+          <td>原有 100M：企业专线<br>新增 1000M：普通宽带</td>
+        </tr>
+        <tr>
+          <td>运营商</td>
+          <td>电信</td>
+          <td>电信</td>
+          <td>电信</td>
+        </tr>
+        <tr>
+          <td>年费总计</td>
+          <td>¥48,000</td>
+          <td>¥46,825</td>
+          <td>¥34,880</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:20px;">
+      <div class="note-row">
+        <span class="marker">①</span>
+        <span>方案 1：将现有 100M 线路升级至 200M，原线路被替代，仅保留一条线路。总年费 ¥48,000。</span>
+      </div>
+      <div class="note-row" style="margin-top:8px">
+        <span class="marker">②</span>
+        <span>方案 2：保留现有 100M 线路（¥24,000/年），新增一条 100M 线路（原价 ¥28,531/年，八折后 ¥22,825/年）。两条线路均有固定 IP。总年费 ¥46,825。</span>
+      </div>
+      <div class="note-row" style="margin-top:8px">
+        <span class="marker">③</span>
+        <span>方案 3：保留现有 100M 专线（¥24,000/年），新增一条 1000M 普通宽带（¥10,880/年）。<strong>新增的 1000M 线路为普通宽带、不含固定 IP</strong>，这是方案 3 价格显著低于方案 1/2 的两个主要原因。总年费 ¥34,880。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 方案具体内容 -->
+  <div class="card">
+    <h2><span class="icon">🔍</span>各方案详情</h2>
+    <div class="plan-grid">
+      <div class="plan-card">
+        <div class="plan-num">方案 1</div>
+        <div class="plan-name">升级至 200M</div>
+        <div class="plan-price">¥48,000</div>
+        <div class="plan-price-sub">/ 年</div>
+        <div class="plan-items">
+          <div class="item"><span class="key">线路</span><span class="val">1 条 200M</span></div>
+          <div class="item"><span class="key">线路类型</span><span class="val">企业专线</span></div>
+          <div class="item"><span class="key">固定 IP</span><span class="val">有</span></div>
+          <div class="item"><span class="key">总带宽</span><span class="val">200M</span></div>
+          <div class="item"><span class="key">单价</span><span class="val">¥240 / Mbps·年</span></div>
+        </div>
+        <div class="price-note">现有 100M 线路升级替代</div>
+      </div>
+      <div class="plan-card">
+        <div class="plan-num">方案 2</div>
+        <div class="plan-name">新增 100M 双线</div>
+        <div class="plan-price">¥46,825</div>
+        <div class="plan-price-sub">/ 年</div>
+        <div class="plan-items">
+          <div class="item"><span class="key">线路</span><span class="val">2 条 100M</span></div>
+          <div class="item"><span class="key">线路类型</span><span class="val">企业专线</span></div>
+          <div class="item"><span class="key">固定 IP</span><span class="val">两条均有</span></div>
+          <div class="item"><span class="key">总带宽</span><span class="val">200M</span></div>
+          <div class="item"><span class="key">单价</span><span class="val">¥234 / Mbps·年</span></div>
+        </div>
+        <div class="price-note">现有 100M（¥24,000）+ 新增 100M（¥22,825，八折后）</div>
+      </div>
+      <div class="plan-card" style="border-color: #bae6fd;">
+        <div class="plan-num">方案 3</div>
+        <div class="plan-name">新增 1000M 线路</div>
+        <div class="plan-price">¥34,880</div>
+        <div class="plan-price-sub">/ 年</div>
+        <div class="plan-items">
+          <div class="item"><span class="key">线路</span><span class="val">100M + 1000M</span></div>
+          <div class="item"><span class="key">线路类型</span><span class="val">100M：企业专线<br>1000M：普通宽带</span></div>
+          <div class="item"><span class="key">固定 IP</span><span class="val">100M 线有，1000M 线无</span></div>
+          <div class="item"><span class="key">总带宽</span><span class="val">1100M</span></div>
+          <div class="item"><span class="key">单价</span><span class="val">¥32 / Mbps·年</span></div>
+        </div>
+        <div class="price-note">现有 100M 专线（¥24,000）+ 新增 1000M 普通宽带（¥10,880）<br><br>新增 1000M 线路为<strong>普通宽带</strong>，与方案 1/2 的企业专线存在以下差异：<br>① <strong>不含固定 IP</strong><br>② 普通宽带接入设备数通常建议不超过 30~40 台，超过后可能出现不稳定、频繁卡顿；企业专线可承载上百台设备同时在线仍保持稳定</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 专线 vs 普通宽带 -->
+  <div class="card">
+    <h2><span class="icon">🔄</span>企业专线与普通宽带的区别</h2>
+    <p style="font-size:14px;color:#666;margin-bottom:24px">
+      方案 1 / 方案 2 的新增线路均为<strong>企业专线</strong>；方案 3 的新增 1000M 线路为<strong>普通宽带</strong>。
+      虽然普通宽带标称带宽更高，但在实际使用中存在以下差异。
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:18%"></th>
+          <th style="width:41%">企业专线</th>
+          <th style="width:41%">普通宽带</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>适用场景</td>
+          <td>企业办公，数十至上百台设备同时在线</td>
+          <td>家庭或小微企业，通常 30 台以下设备</td>
+        </tr>
+        <tr>
+          <td>多设备稳定性</td>
+          <td>大量设备同时在线仅偶尔出现卡顿</td>
+          <td>超过 30~40 台设备后容易出现不稳定、频繁卡顿</td>
+        </tr>
+        <tr>
+          <td>运营商建议接入数</td>
+          <td>无明确上限，但稳定性较普通宽带高</td>
+          <td>通常不建议超过 30 台设备</td>
+        </tr>
+        <tr>
+          <td>固定 IP</td>
+          <td>通常提供</td>
+          <td>通常不提供</td>
+        </tr>
+        <tr>
+          <td>带宽保障</td>
+          <td>独享带宽，高峰时段速率稳定</td>
+          <td>标称带宽在高峰时段可能下降</td>
+        </tr>
+        <tr>
+          <td>价格</td>
+          <td>较高</td>
+          <td>较低</td>
+        </tr>
+        <tr>
+          <td>方案中对应</td>
+          <td>方案 1（200M）、方案 2（100M+100M）</td>
+          <td>方案 3 新增的 1000M 线路</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:16px;font-size:13px;color:#888">
+      * 方案 3 保留了原有 100M 企业专线（¥24,000/年），该线路的固定 IP、稳定性、SLA 均不受影响。新增的 1000M 普通宽带作为补充带宽，建议将不需要固定 IP 的普通上网流量分流到该线路。
+    </div>
+  </div>
+
+  <!-- 扩容 vs 加装 -->
+  <div class="card">
+    <h2><span class="icon">⚖️</span>扩容与加装的技术对比</h2>
+    <p style="font-size:14px;color:#666;margin-bottom:24px">方案 1 属于「扩容」（旧线升级），方案 2 / 3 属于「加装」（保留旧线 + 新增线路）。注意：方案 2 新增的 100M 为<strong>企业专线</strong>，方案 3 新增的 1000M 为<strong>普通宽带</strong>，两者的线路等级不同。</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:18%"></th>
+          <th style="width:41%">扩容（方案 1）</th>
+          <th style="width:41%">加装（方案 2 / 3）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>管理复杂度</td>
+          <td>低，单线路维护</td>
+          <td>中，需双 WAN 路由器 + 策略配置</td>
+        </tr>
+        <tr>
+          <td>故障冗余</td>
+          <td>无，单点故障则全公司断网</td>
+          <td>有，一条线路故障可自动切到另一条</td>
+        </tr>
+        <tr>
+          <td>冗余有效前提</td>
+          <td>—</td>
+          <td>需确认两条线路是否共用一个光缆管道井；若同路由，物理故障会同时中断</td>
+        </tr>
+        <tr>
+          <td>现有配置影响</td>
+          <td>固定 IP 可能变更（需确认），路由/端口映射等需同步修改</td>
+          <td>老线路配置全部保留不动，不受施工影响</td>
+        </tr>
+        <tr>
+          <td>带宽性价比</td>
+          <td>低（¥240 / Mbps·年）</td>
+          <td>方案 2 低（¥234），方案 3 高（¥11）</td>
+        </tr>
+        <tr>
+          <td>硬件要求</td>
+          <td>现有路由器可直接使用</td>
+          <td>需要路由器支持双 WAN 口；若不支持需更换设备</td>
+        </tr>
+        <tr>
+          <td>流量分配</td>
+          <td>无，所有流量混跑</td>
+          <td>可做策略路由：不需要固定 IP 的流量走新线，需要固定 IP 的服务留老线</td>
+        </tr>
+        <tr>
+          <td>施工影响</td>
+          <td>升级期间可能短暂断网</td>
+          <td>老线路不受施工影响，新增线路独立安装</td>
+        </tr>
+      </tbody>
+    </table>
+
+  
+  </div>
+
+</div>
+</body>
+</html>
